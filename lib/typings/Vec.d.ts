@@ -7,6 +7,7 @@ export class Vec {
   cross(): Vec3;
   div(s: number): Vec;
   exp(): Vec;
+  pow(s: number): Vec;
   hDiv(otherVec: Vec): Vec;
   hMul(otherVec: Vec): Vec;
   mean(): Vec;

@@ -73,7 +73,8 @@
 	FF_PROTO_SET_ARITHMETIC_OPERATIONS(ctor)									\
 	Nan::SetPrototypeMethod(ctor, "hMul", HMul);							\
 	Nan::SetPrototypeMethod(ctor, "hDiv", HDiv);							\
-	Nan::SetPrototypeMethod(ctor, "absdiff", Absdiff);				\
+	Nan::SetPrototypeMethod(ctor, "absdiff", Absdiff);
+    Nan::SetPrototypeMethod(ctor, "pow", Pow);	                            \
 	Nan::SetPrototypeMethod(ctor, "exp", Exp);								\
 	Nan::SetPrototypeMethod(ctor, "log", Log);								\
 	Nan::SetPrototypeMethod(ctor, "sqrt", Sqrt);							\
@@ -117,7 +118,10 @@
 	}																																			\
 	static NAN_METHOD(Absdiff) {																					\
 		FF_OPERATOR(cv::absdiff, FF_APPLY_FUNC, clazz, "Absdiff");					\
-	}																																			\
+	}
+	static NAN_METHOD(Pow) {																			\
+        FF_SCALAR_OPERATOR(cv::pow, FF_APPLY_FUNC, clazz, "Pow");	\
+    }																																	\
 	static NAN_METHOD(Exp) {																							\
 		FF_SELF_OPERATOR(cv::exp);																\
 	}																																			\

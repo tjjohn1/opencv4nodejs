@@ -240,6 +240,7 @@ export class Mat {
   pop_backAsync(numRows?: number): Promise<Mat>;
   popBack(numRows?: number): Mat;
   popBackAsync(numRows?: number): Promise<Mat>;
+  pow(s: number): Mat;
   push_back(mat: Mat): Mat;
   push_backAsync(mat: Mat): Promise<Mat>;
   pushBack(mat: Mat): Mat;
