@@ -117,7 +117,7 @@
 		FF_OPERATOR(cv::divide, FF_APPLY_FUNC, clazz, "HDiv");						\
 	}																																			\
 	static NAN_METHOD(Absdiff) {																					\
-		FF_OPERATOR(cv::absdiff, FF_APPLY_FUNC, clazz, "Absdiff");					\
+		FF_OPERATOR(cv::absdiff, FF_APPLY_FUNC, clazz, "");					\
 	}
 	static NAN_METHOD(Pow) {																			\
         FF_SCALAR_OPERATOR(cv::pow, FF_APPLY_FUNC, clazz, "Pow");	\

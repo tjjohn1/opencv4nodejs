@@ -77,6 +77,25 @@ module.exports = function ({ cv, utils }) {
     });
   });
 
+    describe('pow', () => {
+        operatorRequiresArg('pow', true);
+
+        it('take matrix elements to scalar power', () => {
+            const mat = new cv.Mat([
+                [2, 4],
+                [2, 4]
+            ], cv.CV_8U);
+            const scalar = 2;
+            const expectedResult = [
+                [4, 16],
+                [4, 16]
+            ];
+            const res = mat.pow(scalar);
+            assertMetaData(res)(2, 2, cv.CV_8U);
+            assertDataDeepEquals(res.getDataAsArray(), expectedResult);
+        });
+    });
+
   describe('div', () => {
     operatorRequiresArg('div', true);
 

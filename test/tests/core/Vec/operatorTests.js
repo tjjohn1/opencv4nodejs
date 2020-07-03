@@ -47,6 +47,14 @@ module.exports = function ({ cv, utils }) {
         });
       });
 
+      describe('pow', () => {
+          operatorRequiresArg('pow', true);
+
+          it('take vector elements to scalar power', () => {
+              assertPropsWithValue(vec0.pow(2))({ x: 2, y: 4 });
+          });
+      });
+
       describe('div', () => {
         operatorRequiresArg('div', true);
 
@@ -134,6 +142,14 @@ module.exports = function ({ cv, utils }) {
           assertPropsWithValue(vec0.mul(2))({ x: 200, y: 400, z: 600 });
         });
       });
+
+        describe('pow', () => {
+            operatorRequiresArg('pow', true);
+
+            it('take vector elements to scalar power', () => {
+                assertPropsWithValue(vec0.pow(2))({ x: 2, y: 4, z: 6 });
+            });
+        });
 
       describe('div', () => {
         operatorRequiresArg('div', true);
@@ -231,6 +247,14 @@ module.exports = function ({ cv, utils }) {
         });
       });
 
+        describe('pow', () => {
+            operatorRequiresArg('pow', true);
+
+            it('take vector elements to scalar power', () => {
+                assertPropsWithValue(vec0.pow(2))({ w: 1, x: 2, y: 4, z: 6 });
+            });
+        });
+
       describe('div', () => {
         operatorRequiresArg('div', true);
 
@@ -318,6 +342,14 @@ module.exports = function ({ cv, utils }) {
           assertPropsWithValue(vec0.mul(2))({ u: 100, v: 200, w: 400, x: 600, y: 800, z: 1000 });
         });
       });
+
+        describe('pow', () => {
+            operatorRequiresArg('pow', true);
+
+            it('multiply vector by scalar', () => {
+                assertPropsWithValue(vec0.pow(2))({ u: 1, v: 2, w: 4, x: 6, y: 8, z: 10 });
+            });
+        });
 
       describe('div', () => {
         operatorRequiresArg('div', true);
