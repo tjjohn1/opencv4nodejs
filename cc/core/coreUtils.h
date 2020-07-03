@@ -24,24 +24,30 @@
 #define FF_POW(func, applyFunc, clazz, methodName)			\
     v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));	\
     if (!info[0]->IsNumber()) {	\
-            return tryCatch.throwError("expected arg to be a Scalar"); \
-        }
-    func(unwrapSelf(info), info[0].As<Number>()->Value(), unwrapClassPtrUnchecked(jsObj)->self);																																						\
-    return info.GetReturnValue().Set(jsObj);
+        		return tryCatch.throwError("expected arg to be a Scalar"); \
+        	}																																					\
+    v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));							\
+        	applyFunc(																											\
+        		func,																													\
+        		unwrapSelf(info),																				\
+        		info[0]->ToNumber(Nan::GetCurrentContext()).ToLocalChecked()->Value(),																				\
+        		unwrapClassPtrUnchecked(jsObj)->self																							\
+        	);																															\
+        	return info.GetReturnValue().Set(jsObj);
 
 #define FF_SCALAR_OPERATOR(func, applyFunc, clazz, methodName) \
 	FF::TryCatch tryCatch(methodName); \
-    if (info.Length() < 1) {
-        Nan::ThrowTypeError("Invalid number of arguments");
-      }
-	v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));							\
-	applyFunc(																											\
-		func,																													\
-		unwrapSelf(info),																				\
-		info[0]->ToNumber(Nan::GetCurrentContext()).ToLocalChecked()->Value(),																				\
-		unwrapClassPtrUnchecked(jsObj)->self																							\
-	);																															\
-	return info.GetReturnValue().Set(jsObj);																																																										
+    	if (!info[0]->IsNumber()) {	\
+    		return tryCatch.throwError("expected arg to be a Scalar"); \
+    	}																																\
+    	v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));							\
+    	applyFunc(																											\
+    		func,																													\
+    		unwrapSelf(info),																				\
+    		info[0]->ToNumber(Nan::GetCurrentContext()).ToLocalChecked()->Value(),																				\
+    		unwrapClassPtrUnchecked(jsObj)->self																							\
+    	);																															\
+    	return info.GetReturnValue().Set(jsObj);
 
 #define FF_OPERATOR(func, applyFunc, clazz, methodName) \
 	FF::TryCatch tryCatch(methodName); \
