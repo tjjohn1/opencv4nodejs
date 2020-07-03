@@ -23,16 +23,10 @@
 
 #define FF_POW(func, applyFunc, clazz, methodName)			\
     v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));	\
-    func(unwrapSelf(info), unwrapClassPtrUnchecked(jsObj)->self);
     if (!info[0]->IsNumber()) {	\
-        return tryCatch.throwError("expected arg to be a Scalar"); \
-    }
-    applyFunc(																																			\
-    		func,																																					\
-    		unwrapSelf(info),																											\
-    		info[0].As<Number>()->Value(),																								\
-    		unwrapClassPtrUnchecked(jsObj)->self																																\
-    	);																																							\
+            return tryCatch.throwError("expected arg to be a Scalar"); \
+        }
+    func(unwrapSelf(info), info[0].As<Number>()->Value(), unwrapClassPtrUnchecked(jsObj)->self);																																						\
     return info.GetReturnValue().Set(jsObj);
 
 #define FF_SCALAR_OPERATOR(func, applyFunc, clazz, methodName) \
