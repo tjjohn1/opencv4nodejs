@@ -66,6 +66,7 @@ public:
   static NAN_METHOD(PushBack);
   static NAN_METHOD(PushBackAsync);
   static NAN_METHOD(PopBack);
+  static NAN_METHOD(Pow);
   static NAN_METHOD(PopBackAsync);
   static NAN_METHOD(GetData);
   static NAN_METHOD(GetDataAsync);

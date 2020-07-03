@@ -91,6 +91,19 @@ namespace MatBindings {
 	  };
   };
 
+  class Pow : public CvClassMethodBinding<Mat> {
+    public:
+  	  void createBinding(std::shared_ptr<FF::Value<cv::Mat>> self) {
+  		  auto kSize = req<Size::Converter>();
+  		  auto power = req<FF::DoubleConverter>();
+  		  auto powerMat = ret<Mat::Converter>("powerMat");
+
+  		  executeBinding = [=]() {
+  			  cv::pow(self->ref(), power->ref(), powerMat->ref());
+  		  };
+  	  };
+    };
+
   struct GetDataWorker : CatchCvExceptionWorker {
   public:
     cv::Mat mat;

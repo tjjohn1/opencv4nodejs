@@ -50,6 +50,7 @@ NAN_MODULE_INIT(Mat::Init) {
   Nan::SetPrototypeMethod(ctor, "pop_back", PopBack);
   Nan::SetPrototypeMethod(ctor, "pop_backAsync", PopBackAsync);
   Nan::SetPrototypeMethod(ctor, "popBack", PopBack);
+  Nan::SetPrototypeMethod(ctor, "pow", Pow);
   Nan::SetPrototypeMethod(ctor, "popBackAsync", PopBackAsync);
   Nan::SetPrototypeMethod(ctor, "getData", GetData);
   Nan::SetPrototypeMethod(ctor, "getDataAsync", GetDataAsync);
@@ -467,6 +468,10 @@ NAN_METHOD(Mat::PushBackAsync) {
 
 NAN_METHOD(Mat::PopBack) {
 	Mat::syncBinding<MatBindings::PopBack>("PopBack", info);
+}
+
+NAN_METHOD(Mat::Pow) {
+	Mat::syncBinding<MatBindings::Pow>("Pow", info);
 }
 
 NAN_METHOD(Mat::PopBackAsync) {
