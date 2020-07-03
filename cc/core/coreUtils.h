@@ -120,7 +120,7 @@
 		FF_OPERATOR(cv::absdiff, FF_APPLY_FUNC, clazz, "");					\
 	}
 	static NAN_METHOD(Pow) {																			\
-        FF_SCALAR_OPERATOR(cv::pow, FF_APPLY_FUNC, clazz, "Pow");	\
+        FF_OPERATOR(cv::pow, FF_APPLY_FUNC, clazz, "Pow");	\
     }																																	\
 	static NAN_METHOD(Exp) {																							\
 		FF_SELF_OPERATOR(cv::exp);																\
