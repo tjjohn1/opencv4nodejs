@@ -21,7 +21,8 @@
 	func(unwrapSelf(info), unwrapClassPtrUnchecked(jsObj)->self);			\
 	return info.GetReturnValue().Set(jsObj);
 
-#define FF_POW(func)			\
+#define FF_POW(func)
+	FF::TryCatch tryCatch(methodName); \
     v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));	\
     if (!info[0]->IsNumber()) {	\
         return tryCatch.throwError("expected arg to be a Scalar"); \
@@ -85,8 +86,7 @@
 	FF_PROTO_SET_ARITHMETIC_OPERATIONS(ctor)									\
 	Nan::SetPrototypeMethod(ctor, "hMul", HMul);							\
 	Nan::SetPrototypeMethod(ctor, "hDiv", HDiv);							\
-	Nan::SetPrototypeMethod(ctor, "absdiff", Absdiff);
-    Nan::SetPrototypeMethod(ctor, "pow", Pow);	                            \
+	Nan::SetPrototypeMethod(ctor, "absdiff", Absdiff);	                            \
 	Nan::SetPrototypeMethod(ctor, "exp", Exp);								\
 	Nan::SetPrototypeMethod(ctor, "log", Log);								\
 	Nan::SetPrototypeMethod(ctor, "sqrt", Sqrt);							\
@@ -105,6 +105,7 @@
 	Nan::SetPrototypeMethod(ctor, "inv", Inv);		\
 	Nan::SetPrototypeMethod(ctor, "determinant", Determinant);\
 	Nan::SetPrototypeMethod(ctor, "matMul", MatMul);
+	Nan::SetPrototypeMethod(ctor, "pow", Pow); \
 
 #define FF_INIT_ARITHMETIC_OPERATIONS(clazz)					\
 	static NAN_METHOD(Add) {																			\
@@ -130,10 +131,7 @@
 	}																																			\
 	static NAN_METHOD(Absdiff) {																					\
 		FF_OPERATOR(cv::absdiff, FF_APPLY_FUNC, clazz, "");					\
-	}
-	static NAN_METHOD(Pow) {																			\
-        FF_POW(cv::pow);	\
-    }																																	\
+	}																																	\
 	static NAN_METHOD(Exp) {																							\
 		FF_SELF_OPERATOR(cv::exp);																\
 	}																																			\
@@ -166,7 +164,10 @@
 	}																																					\
 	static NAN_METHOD(Abs) {																									\
 		return info.GetReturnValue().Set(Converter::wrap(cv::abs(unwrapSelf(info))));\
-	}																																					\
+	}
+    static NAN_METHOD(Pow) {																			\
+            FF_POW(cv::pow);	\
+        }\
 	static NAN_METHOD(Determinant) {																					\
 		return info.GetReturnValue().Set(																				\
 			cv::determinant(Mat::unwrapSelf(info)));									\
