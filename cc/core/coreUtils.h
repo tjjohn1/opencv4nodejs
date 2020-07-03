@@ -19,13 +19,27 @@
 #define FF_SELF_OPERATOR(func)							\
 	v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));	\
 	func(unwrapSelf(info), unwrapClassPtrUnchecked(jsObj)->self);			\
-	return info.GetReturnValue().Set(jsObj);					
+	return info.GetReturnValue().Set(jsObj);
+
+#define FF_POW(func, applyFunc, clazz, methodName)			\
+    v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));	\
+    func(unwrapSelf(info), unwrapClassPtrUnchecked(jsObj)->self);
+    if (!info[0]->IsNumber()) {	\
+        return tryCatch.throwError("expected arg to be a Scalar"); \
+    }
+    applyFunc(																																			\
+    		func,																																					\
+    		unwrapSelf(info),																											\
+    		info[0].As<Number>()->Value(),																								\
+    		unwrapClassPtrUnchecked(jsObj)->self																																\
+    	);																																							\
+    return info.GetReturnValue().Set(jsObj);
 
 #define FF_SCALAR_OPERATOR(func, applyFunc, clazz, methodName) \
 	FF::TryCatch tryCatch(methodName); \
-	if (!info[0]->IsNumber()) {	\
-		return tryCatch.throwError("expected arg to be a Scalar"); \
-	}																																\
+    if (info.Length() < 1) {
+        Nan::ThrowTypeError("Invalid number of arguments");
+      }
 	v8::Local<v8::Object> jsObj = FF::newInstance(Nan::New(constructor));							\
 	applyFunc(																											\
 		func,																													\
@@ -120,7 +134,7 @@
 		FF_OPERATOR(cv::absdiff, FF_APPLY_FUNC, clazz, "");					\
 	}
 	static NAN_METHOD(Pow) {																			\
-        FF_OPERATOR(cv::pow, FF_APPLY_FUNC, clazz, "Pow");	\
+        FF_POW(cv::pow, FF_APPLY_FUNC, clazz, "Pow");	\
     }																																	\
 	static NAN_METHOD(Exp) {																							\
 		FF_SELF_OPERATOR(cv::exp);																\
